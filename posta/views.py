@@ -9,7 +9,16 @@ from django.urls import reverse
 import json
 from .models import *
 
+def index(request):
 
+    # Authenticated users view their inbox
+    if request.user.is_authenticated:
+        return render(request, "templates/index.html")
+
+    # Everyone else is prompted to sign in
+    else:
+        return HttpResponseRedirect(reverse("login"))
+    
 def login_view(request):
     
     if request.method == "POST":

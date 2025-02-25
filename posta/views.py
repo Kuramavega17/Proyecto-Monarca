@@ -52,9 +52,11 @@ def register(request):
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
-        if password != confirmation:
-            return render(request, "posta/register.html", {
-                "message": "Passwords must match."
+        if password != confirmation  :
+
+            print ("Error")
+            return render(request, "posta/login.html", {
+                "alerta": "Passwords must match."
             })
 
         # Attempt to create new user
@@ -63,12 +65,12 @@ def register(request):
             user.save()
         except IntegrityError as e:
             print(e)
-            return render(request, "posta/register.html", {
-                "message": "username address already taken."
+            return render(request, "posta/login.html", {
+                "alerta": "username address already taken."
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "posta/register.html")
+        return render(request, "posta/login.html")
 
 # Create your views here.
